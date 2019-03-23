@@ -1,0 +1,39 @@
+@charset "UTF-8";
+
+/* breakpoint variables */
+$lg: 1170px;
+$md: 1024px;
+$sm: 640px;
+$xs: 480px;
+
+
+/* font-sizes */
+$html-font-size: ( null: 16px, $md: 15px, $sm: 14px, $xs: 13px );
+$paragraph-font-size: ( null: 18px, $lg: 17px, $md: 16px, $sm: 15px, $xs: 14px );
+
+
+/* html */
+h1 {
+	/* 23px -- convert them to em. */
+	font-size: em(23);
+	font-weight: bold;
+	/* line height using mixin */
+	@include line-height(23px, 26px);
+}
+
+p {
+	/* 16px -- convert them to em. */
+	font-size: em(14);
+	font-weight: normal;
+	/* line-height using function */
+	line-height: line-height(16px, 22px);
+}
+
+// responsive typography
+html {
+	@include font-size-map($html-font-size);
+}
+
+p {
+	@include font-size-map($paragraph-font-size);
+}

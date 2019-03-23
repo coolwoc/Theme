@@ -1,0 +1,54 @@
+// line height mixin
+@mixin line-height ( $font-size, $line-height: $font-size ) {
+	line-height: $line-height/$font-size;
+}
+
+// line height function
+@function line-height ( $font-size, $line-height: $font-size ) {
+	@return $line-height/$font-size;
+}
+
+// breaking points mixin
+@mixin breakpoint ( $mq01: 0, $mq2: false, $maxmin: max-width ) {
+
+	@if $mq2 == false {
+		@media ($maxmin: $mq01) {
+			@content;
+		}
+	}
+	@else {
+		@media (min-width: $mq01) and (max-width: $mq2) {
+			@content;
+		}
+	}
+}
+
+// responsive font size mixin
+@mixin font-size-map($font-size-map) {
+	@each $breakpoint, $font-size in $font-size-map {
+		@if $breakpoint == null {
+				font-size: em($font-size);
+		} @else {
+			@include breakpoint ($breakpoint) {
+				font-size: em($font-size);
+			}
+		}
+	}
+}
+
+// unitless function to convert px to em
+@function em($pixels, $content: $browser-context) {
+
+	//@return #{$pixel/$content}em
+
+	@if (unitless($pixels)) {
+		$pixels: $pixels * 1px;
+	}
+	@if (unitless($content)) {
+		$content: $content  * 1px;
+	}
+	@return $pixels / $content * 1em;
+}
+
+// function to convert px to em
+$browser-context: 14px;
